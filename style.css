@@ -248,7 +248,7 @@ footer {
 .reward-nav {
   position: relative; z-index: 100;
   display: flex; align-items: center; justify-content: center;
-  padding: 15px 2.5rem;
+  padding: 10px 2.5rem;
   background: rgba(253, 250, 245, 0.85);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(196, 149, 106, 0.2);
