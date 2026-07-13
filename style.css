@@ -246,7 +246,7 @@ footer {
 
 /* ===== REWARD PAGE ===== */
 .reward-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  position: relative; z-index: 100;
   display: flex; align-items: center; justify-content: center;
   padding: 15px 2.5rem;
   background: rgba(253, 250, 245, 0.85);
@@ -257,7 +257,7 @@ footer {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
   background: var(--cream);
-  padding: 80px 2rem 4rem;
+  padding: 0 2rem 4rem;
   text-align: center;
 }
 .reward-logo { height: 200px; width: auto; object-fit: contain; display: block; }
