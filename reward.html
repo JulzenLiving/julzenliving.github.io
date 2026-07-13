@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>JULZEN — Your Reward</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="reward-nav">
+    <img src="logo.png" alt="JULZEN" class="reward-logo" />
+  </nav>
+
+  <!-- REWARD -->
+  <section class="reward">
+    <div class="reward-inner">
+      <span class="label reward-label">Exclusive Reward</span>
+      <h1>Welcome to JULZEN.</h1>
+      <p class="reward-sub">Your reward is one step away. Use it, or gift it to someone who would love JULZEN.</p>
+
+      <form id="reward-form" class="reward-form">
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="you@email.com" required />
+        <button type="submit">Claim your discount</button>
+      </form>
+      <p id="reward-error" class="reward-error" hidden>Something went wrong. Please try again.</p>
+
+      <div id="reward-result" class="reward-result" hidden>
+        <p class="reward-result-label">Your code</p>
+        <p class="reward-code">JULZENOFF10</p>
+        <p class="reward-note">Use it at checkout on Amazon.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">JULZEN</div>
+      <p class="footer-tagline">El hogar que recuerda.</p>
+      <p class="footer-copy">© 2025 JULZEN. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('reward-form');
+    const errorMsg = document.getElementById('reward-error');
+    const result = document.getElementById('reward-result');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.hidden = true;
+
+      const button = form.querySelector('button');
+      button.disabled = true;
+      button.textContent = 'Sending...';
+
+      try {
+        const response = await fetch('https://formspree.io/f/mgoqwkvl', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(form)
+        });
+
+        if (response.ok) {
+          form.hidden = true;
+          result.hidden = false;
+        } else {
+          throw new Error('Formspree error');
+        }
+      } catch (err) {
+        errorMsg.hidden = false;
+        button.disabled = false;
+        button.textContent = 'Claim your discount';
+      }
+    });
+  </script>
+
+</body>
+</html>
