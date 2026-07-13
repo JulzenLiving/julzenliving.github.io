@@ -257,10 +257,10 @@ footer {
   min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
   background: var(--cream);
-  padding: 11rem 2rem 4rem;
+  padding: 15rem 2rem 4rem;
   text-align: center;
 }
-.reward-logo { height: 120px; width: auto; object-fit: contain; }
+.reward-logo { height: 200px; width: auto; object-fit: contain; }
 .reward-inner { max-width: 480px; margin: 0 auto; }
 .reward-label { font-size: 0.95rem; }
 .reward h1 {
