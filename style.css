@@ -248,7 +248,9 @@ footer {
 .reward-nav {
   position: relative; z-index: 100;
   display: flex; align-items: center; justify-content: center;
-  padding: 10px 2.5rem;
+  padding: 0;
+  height: auto;
+  line-height: 0;
   background: rgba(253, 250, 245, 0.85);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(196, 149, 106, 0.2);
@@ -260,7 +262,7 @@ footer {
   padding: 0 2rem 4rem;
   text-align: center;
 }
-.reward-logo { height: 200px; width: auto; object-fit: contain; display: block; }
+.reward-logo { height: 60px; width: auto; object-fit: contain; display: block; }
 .reward-inner { max-width: 480px; margin: 0 auto; }
 .reward-label { font-size: 0.95rem; }
 .reward h1 {
