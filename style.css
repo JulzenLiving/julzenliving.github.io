@@ -307,5 +307,5 @@ footer {
 }
 .btn-copy:hover { background: var(--brown); color: #fff; }
 .reward-note { font-size: 0.85rem; color: var(--mid); margin-bottom: 1.25rem; }
-.reward-review { font-size: 0.85rem; color: var(--mid); line-height: 1.6; }
-.reward-review a { color: var(--brown); border-bottom: 1px solid var(--camel); }
+.reward-review { font-size: 0.85rem; color: var(--mid); line-height: 1.6; margin-bottom: 1rem; }
+.reward-review-btn { margin-top: 0.25rem; }
