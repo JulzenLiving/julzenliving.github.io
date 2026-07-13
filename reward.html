@@ -33,8 +33,12 @@
 
       <div id="reward-result" class="reward-result" hidden>
         <p class="reward-result-label">Your code</p>
-        <p class="reward-code">JULZENOFF10</p>
+        <div class="reward-code-row">
+          <p class="reward-code" id="reward-code-text">JULZENOFF10</p>
+          <button type="button" id="copy-code-btn" class="btn-copy">Copy code</button>
+        </div>
         <p class="reward-note">Use it at checkout on Amazon.</p>
+        <p class="reward-review">Loved it? A quick review on Amazon helps us keep creating. <a href="https://www.amazon.com/dp/B0FD91PWK6" target="_blank" rel="noopener">Leave a review →</a></p>
       </div>
     </div>
   </section>
@@ -52,6 +56,8 @@
     const form = document.getElementById('reward-form');
     const errorMsg = document.getElementById('reward-error');
     const result = document.getElementById('reward-result');
+    const copyBtn = document.getElementById('copy-code-btn');
+    const codeText = document.getElementById('reward-code-text');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -69,8 +75,12 @@
         });
 
         if (response.ok) {
-          form.hidden = true;
+          // .reward-form sets display:flex in style.css, which as an author
+          // rule overrides the UA "[hidden]" rule regardless of specificity —
+          // so the hidden attribute alone never actually hides it. Force it.
+          form.style.display = 'none';
           result.hidden = false;
+          result.style.display = 'block';
         } else {
           throw new Error('Formspree error');
         }
@@ -79,6 +89,12 @@
         button.disabled = false;
         button.textContent = 'Claim your discount';
       }
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(codeText.textContent.trim());
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => { copyBtn.textContent = 'Copy code'; }, 2000);
     });
   </script>
 
