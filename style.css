@@ -104,6 +104,40 @@ button { font: inherit; }
   .nav-lang:hover { opacity: 1; }
 }
 
+/* Language switch (visual only for now; Spanish version coming) */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  background: rgba(123, 85, 53, 0.85);
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  user-select: none;
+}
+.lang-option {
+  padding: 0.2rem 0.4rem;
+  border-radius: 999px;
+  color: rgba(255,255,255,0.5);
+  transition: background 200ms ease, color 200ms ease;
+}
+.lang-option.lang-active {
+  background: rgba(255,255,255,0.95);
+  color: var(--brown);
+}
+.lang-separator {
+  color: rgba(255,255,255,0.3);
+  font-size: 0.6rem;
+}
+
+/* Cuando el nav tiene fondo claro (scrolled) */
+.site-nav.is-scrolled .lang-switch {
+  background: var(--brown);
+}
+
 /* ===== HERO ===== */
 .hero {
   position: relative; overflow: hidden;
