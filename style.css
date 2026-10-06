@@ -280,20 +280,19 @@ button { font: inherit; }
 .rating.is-pending .rstar { opacity: 0; transform: translateY(6px) scale(0.92); }
 
 /* --- Review carousel: one review at a time --- */
-/* All reviews share one grid cell, so the block keeps the tallest
-   review's height and nothing below it jumps when they rotate */
-.rv-list {
-  display: grid; max-width: 1120px; margin: 0 auto;
-}
+/* Reviews carousel: only the active review is in the flow, so the
+   container takes the active review's height */
+.rv-list { position: relative; max-width: 1120px; margin: 0 auto; }
 
 .rv {
-  grid-area: 1 / 1;
   display: flex; flex-direction: column; gap: 1.25rem;
   opacity: 0; visibility: hidden;
+  position: absolute; top: 0; left: 0; right: 0;
   transition: opacity 700ms ease, visibility 0s linear 700ms;
 }
 .rv.rv-active {
   opacity: 1; visibility: visible;
+  position: relative;
   transition: opacity 700ms ease, visibility 0s;
 }
 .rv .rv-text {
@@ -301,8 +300,6 @@ button { font: inherit; }
   transition: transform 900ms var(--ease-out);
 }
 .rv.rv-active .rv-text { transform: none; }
-/* Mobile: pin the photo to the bottom so photos crossfade over photos */
-.rv .rv-media { margin-top: auto; }
 
 .rv-text { text-align: left; }
 
@@ -339,8 +336,8 @@ button { font: inherit; }
 /* Review image — smaller, landscape on mobile */
 .rv-media {
   position: relative; overflow: hidden; isolation: isolate;
-  aspect-ratio: 3 / 2; border-radius: 14px; background: var(--sand);
-  max-height: 200px;
+  aspect-ratio: 16 / 9; border-radius: 12px; background: var(--sand);
+  max-height: 180px;
 }
 .rv-media img { position: absolute; inset: 0; }
 .rv-slide {
@@ -360,13 +357,13 @@ button { font: inherit; }
 
 /* Review carousel navigation dots */
 .rv-carousel-dots {
-  grid-row: 2; margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 /* Desktop: text left, image right, image taller */
 @media (min-width: 820px) {
   .rv {
-    display: grid; grid-template-columns: 1fr minmax(0, 304px); /* 304 = 380 × 4/5 */
+    display: grid; grid-template-columns: 1fr minmax(0, 380px);
     align-items: center; gap: clamp(3rem, 7vw, 5rem);
   }
   .rv-media {
@@ -374,7 +371,6 @@ button { font: inherit; }
     max-height: 380px;
   }
   .rv-text { max-width: 34rem; }
-  .rv .rv-media { margin-top: 0; }
 }
 
 .carousel-dots {
