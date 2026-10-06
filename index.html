@@ -101,8 +101,12 @@
         <video class="showcase-video" muted autoplay loop playsinline preload="metadata">
           <source src="JULZEN_VideoADS.MP4" type="video/mp4" />
         </video>
-        <div class="video-overlay is-muted" aria-hidden="true">
-          <span class="video-sound-icon">🔇</span>
+        <div class="video-sound-toggle" role="switch" aria-checked="false" tabindex="0" aria-label="Video sound">
+          <span class="sound-label sound-off-label">OFF</span>
+          <div class="sound-switch">
+            <div class="sound-knob"></div>
+          </div>
+          <span class="sound-label sound-on-label">ON</span>
         </div>
       </div>
     </section>
@@ -449,7 +453,6 @@
     var videoWrap = document.querySelector('.video-wrap');
     if (videoWrap) {
       var video = videoWrap.querySelector('.showcase-video');
-      var overlay = videoWrap.querySelector('.video-overlay');
 
       // Autoplay muted when scrolled into view
       if ('IntersectionObserver' in window) {
@@ -457,7 +460,6 @@
           entries.forEach(function (e) {
             if (e.isIntersecting) {
               video.play();
-              overlay.classList.add('is-hidden');
             } else {
               video.pause();
             }
@@ -469,12 +471,33 @@
       // Loop the video
       video.loop = true;
 
-      // Tap to toggle mute/unmute
-      videoWrap.addEventListener('click', function () {
-        video.muted = !video.muted;
-        overlay.classList.toggle('is-muted', video.muted);
-        overlay.classList.toggle('is-unmuted', !video.muted);
-      });
+      // Video sound toggle
+      var soundToggle = document.querySelector('.video-sound-toggle');
+      if (soundToggle && video) {
+        var soundSwitch = soundToggle.querySelector('.sound-switch');
+        var offLabel = soundToggle.querySelector('.sound-off-label');
+        var onLabel = soundToggle.querySelector('.sound-on-label');
+        offLabel.classList.add('is-active');
+
+        var toggleSound = function () {
+          video.muted = !video.muted;
+          soundSwitch.classList.toggle('is-on', !video.muted);
+          offLabel.classList.toggle('is-active', video.muted);
+          onLabel.classList.toggle('is-active', !video.muted);
+          soundToggle.setAttribute('aria-checked', String(!video.muted));
+        };
+        soundToggle.addEventListener('click', function (e) {
+          e.stopPropagation();
+          toggleSound();
+        });
+        // role="switch": Enter and Space work like a click
+        soundToggle.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleSound();
+          }
+        });
+      }
     }
 
     // Language switch EN/ES
