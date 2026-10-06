@@ -113,7 +113,7 @@ button { font: inherit; }
 }
 .hero-media { position: absolute; inset: 0; }
 .hero-media img {
-  object-position: center 50%;
+  object-position: center center;
   transform-origin: center 50%;
   animation: ken-burns 24s ease-in-out infinite alternate;
   will-change: transform;
