@@ -93,7 +93,16 @@
 
     <!-- REVIEWS -->
     <section class="reviews" aria-labelledby="reviews-title">
-      <h2 id="reviews-title" class="section-title reveal">What our customers say</h2>
+      <h2 id="reviews-title" class="section-title reveal">Loved by every home.</h2>
+
+      <div class="rating reveal" style="--i:1" role="img" aria-label="Rated 4.5 out of 5 stars" data-rating="4.5">
+        <p class="rating-score" aria-hidden="true">
+          <span class="rating-value" data-rating-value>4.5</span><span class="rating-max">/ 5</span>
+        </p>
+        <div class="rating-stars" aria-hidden="true">
+          <span class="rstar" style="--s:0">★</span><span class="rstar" style="--s:1">★</span><span class="rstar" style="--s:2">★</span><span class="rstar" style="--s:3">★</span><span class="rstar rstar-half" style="--s:4">★</span>
+        </div>
+      </div>
 
       <div class="carousel reveal" aria-roledescription="carousel" aria-label="Customer reviews" data-carousel="4000">
         <div class="carousel-track">
@@ -186,6 +195,32 @@
       revealEls.forEach(function (el) { io.observe(el); });
     } else {
       revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+    }
+
+    // Rating: count up to the score once the block scrolls into view
+    var rating = document.querySelector("[data-rating]");
+    if (rating) {
+      var valueEl = rating.querySelector("[data-rating-value]");
+      var target = parseFloat(rating.getAttribute("data-rating"));
+      if (!reduceMotion && "IntersectionObserver" in window) {
+        valueEl.textContent = "0.0";
+        rating.classList.add("is-pending");
+        var ratingIO = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          ratingIO.disconnect();
+          rating.classList.remove("is-pending");
+          var duration = 1600, t0 = null;
+          var tick = function (now) {
+            if (t0 === null) t0 = now;
+            var p = Math.min((now - t0) / duration, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            valueEl.textContent = (target * eased).toFixed(1);
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }, { threshold: 0.6 });
+        ratingIO.observe(rating);
+      }
     }
 
     // Carousels: crossfade on an interval, pause on hover/focus and hidden tab
