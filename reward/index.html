@@ -15,31 +15,36 @@
   <!-- NAV -->
   <nav class="reward-nav">
     <div class="logo">JULZEN</div>
+    <div class="lang-switch" role="button" tabindex="0" aria-label="Switch language" style="cursor:pointer;">
+      <span class="lang-option lang-active">EN</span>
+      <span class="lang-separator">/</span>
+      <span class="lang-option">ES</span>
+    </div>
   </nav>
 
   <!-- REWARD -->
   <section class="reward">
     <div class="reward-inner">
-      <span class="label reward-label">Exclusive Reward</span>
-      <h1>Welcome to JULZEN.</h1>
-      <p class="reward-sub">Your reward is one step away. Use it, or gift it to anyone who would love our brand.</p>
+      <span class="label reward-label" data-i18n="reward-label">Exclusive Reward</span>
+      <h1 data-i18n="reward-heading">Welcome to JULZEN.</h1>
+      <p class="reward-sub" data-i18n="reward-sub">Your reward is one step away. Use it, or gift it to anyone who would love our brand.</p>
 
       <form id="reward-form" class="reward-form">
-        <input type="text" name="name" placeholder="Your name" required />
-        <input type="email" name="email" placeholder="you@email.com" required />
-        <button type="submit">Claim your discount</button>
+        <input type="text" name="name" placeholder="Your name" required data-i18n="reward-name-input" />
+        <input type="email" name="email" placeholder="you@email.com" required data-i18n="reward-email-input" />
+        <button type="submit" data-i18n="reward-submit">Claim your discount</button>
       </form>
       <p id="reward-error" class="reward-error" hidden>Something went wrong. Please try again.</p>
 
       <div id="reward-result" class="reward-result" hidden>
-        <p class="reward-result-label">Your code</p>
+        <p class="reward-result-label" data-i18n="reward-code-label">Your code</p>
         <div class="reward-code-row">
           <p class="reward-code" id="reward-code-text">JULZENOFF10</p>
-          <button type="button" id="copy-code-btn" class="btn-copy">Copy code</button>
+          <button type="button" id="copy-code-btn" class="btn-copy" data-i18n="reward-copy">Copy code</button>
         </div>
-        <p class="reward-note">Use it at checkout on Amazon.</p>
-        <p class="reward-review">Loved it? A quick review on Amazon helps us keep creating.</p>
-        <a href="https://www.amazon.com/dp/B0FD91PWK6" target="_blank" rel="noopener" class="btn-primary reward-review-btn">Write a Review</a>
+        <p class="reward-note" data-i18n="reward-note">Use it at checkout on Amazon.</p>
+        <p class="reward-review" data-i18n="reward-review-text">Loved it? A quick review on Amazon helps us keep creating.</p>
+        <a href="https://www.amazon.com/dp/B0FD91PWK6" target="_blank" rel="noopener" class="btn-primary reward-review-btn" data-i18n="reward-review-btn">Write a Review</a>
       </div>
     </div>
   </section>
@@ -48,8 +53,8 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-logo">JULZEN</div>
-      <p class="footer-tagline">Inspiring spaces, inspiring lives.</p>
-      <p class="footer-copy">© 2025 JULZEN. All rights reserved.</p>
+      <p class="footer-tagline" data-i18n="footer-tagline">Inspiring spaces, inspiring lives.</p>
+      <p class="footer-copy">© 2026 JULZEN. All rights reserved.</p>
     </div>
   </footer>
 
@@ -97,6 +102,75 @@
       copyBtn.textContent = 'Copied!';
       setTimeout(() => { copyBtn.textContent = 'Copy code'; }, 2000);
     });
+
+    // Language switch for reward page
+    var rewardTranslations = {
+      'reward-label': { en: 'Exclusive Reward', es: 'Recompensa Exclusiva' },
+      'reward-heading': { en: 'Welcome to JULZEN.', es: 'Bienvenido a JULZEN.' },
+      'reward-sub': {
+        en: 'Your reward is one step away. Use it, or gift it to anyone who would love our brand.',
+        es: 'Tu recompensa está a un paso. Úsala, o regálala a alguien que ame nuestra marca.'
+      },
+      'reward-name-input': { en: 'Your name', es: 'Tu nombre' },
+      'reward-email-input': { en: 'you@email.com', es: 'tu@email.com' },
+      'reward-submit': { en: 'Claim your discount', es: 'Reclamar mi descuento' },
+      'reward-code-label': { en: 'Your code', es: 'Tu código' },
+      'reward-copy': { en: 'Copy code', es: 'Copiar código' },
+      'reward-note': {
+        en: 'Use it at checkout on Amazon.',
+        es: 'Úsalo en el checkout de Amazon.'
+      },
+      'reward-review-text': {
+        en: 'Loved it? A quick review on Amazon helps us keep creating.',
+        es: '¿Te encantó? Una reseña rápida en Amazon nos ayuda a seguir creando.'
+      },
+      'reward-review-btn': { en: 'Write a Review', es: 'Escribir una Reseña' },
+      'footer-tagline': {
+        en: 'Inspiring spaces, inspiring lives.',
+        es: 'Espacios que inspiran, vidas que inspiran.'
+      }
+    };
+
+    var currentLang = 'en';
+    var langSwitch = document.querySelector('.lang-switch');
+    if (langSwitch) {
+      var langOptions = langSwitch.querySelectorAll('.lang-option');
+
+      var setLang = function (lang) {
+        currentLang = lang;
+        document.documentElement.setAttribute('lang', lang);
+        langOptions.forEach(function (opt) {
+          opt.classList.toggle('lang-active', opt.textContent.trim().toLowerCase() === lang);
+        });
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+          var key = el.getAttribute('data-i18n');
+          if (rewardTranslations[key] && rewardTranslations[key][lang]) {
+            if (el.tagName === 'INPUT') {
+              el.placeholder = rewardTranslations[key][lang];
+            } else {
+              el.innerHTML = rewardTranslations[key][lang];
+            }
+          }
+        });
+        try { localStorage.setItem('julzen-lang', lang); } catch (e) {}
+      };
+
+      langSwitch.addEventListener('click', function () {
+        setLang(currentLang === 'en' ? 'es' : 'en');
+      });
+      // role="button": Enter and Space work like a click (same as the landing)
+      langSwitch.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setLang(currentLang === 'en' ? 'es' : 'en');
+        }
+      });
+
+      try {
+        var saved = localStorage.getItem('julzen-lang');
+        if (saved === 'es') setLang('es');
+      } catch (e) {}
+    }
   </script>
 
 </body>
