@@ -98,11 +98,11 @@
     <!-- VIDEO -->
     <section class="video-showcase" aria-labelledby="video-title">
       <div class="video-wrap reveal">
-        <video class="showcase-video" muted playsinline preload="metadata" poster="">
+        <video class="showcase-video" muted autoplay loop playsinline preload="metadata">
           <source src="JULZEN_VideoADS.MP4" type="video/mp4" />
         </video>
-        <div class="video-overlay" aria-hidden="true">
-          <span class="video-play-icon">▶</span>
+        <div class="video-overlay is-muted" aria-hidden="true">
+          <span class="video-sound-icon">🔇</span>
         </div>
       </div>
     </section>
@@ -445,44 +445,35 @@
           .then(function () { button.disabled = false; });
       });
     }
-    // Video showcase: play on hover (desktop) / tap (mobile)
+    // Video showcase: autoplay muted, tap to toggle sound
     var videoWrap = document.querySelector('.video-wrap');
     if (videoWrap) {
       var video = videoWrap.querySelector('.showcase-video');
       var overlay = videoWrap.querySelector('.video-overlay');
-      var isTouch = 'ontouchstart' in window;
 
-      var playVideo = function () {
-        video.play();
-        overlay.classList.add('is-hidden');
-      };
-      var pauseVideo = function () {
-        video.pause();
-        overlay.classList.remove('is-hidden');
-      };
-
-      if (!isTouch) {
-        // Desktop: hover to play
-        videoWrap.addEventListener('mouseenter', playVideo);
-        videoWrap.addEventListener('mouseleave', function () {
-          pauseVideo();
-          video.currentTime = 0;
-        });
+      // Autoplay muted when scrolled into view
+      if ('IntersectionObserver' in window) {
+        var vidIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              video.play();
+              overlay.classList.add('is-hidden');
+            } else {
+              video.pause();
+            }
+          });
+        }, { threshold: 0.3 });
+        vidIO.observe(videoWrap);
       }
 
-      // Tap to toggle (works on both mobile and desktop as fallback)
-      videoWrap.addEventListener('click', function () {
-        if (video.paused) {
-          playVideo();
-        } else {
-          pauseVideo();
-        }
-      });
+      // Loop the video
+      video.loop = true;
 
-      // When video ends, reset
-      video.addEventListener('ended', function () {
-        video.currentTime = 0;
-        pauseVideo();
+      // Tap to toggle mute/unmute
+      videoWrap.addEventListener('click', function () {
+        video.muted = !video.muted;
+        overlay.classList.toggle('is-muted', video.muted);
+        overlay.classList.toggle('is-unmuted', !video.muted);
       });
     }
   })();

@@ -295,32 +295,42 @@ button { font: inherit; }
 }
 .video-overlay {
   position: absolute;
-  inset: 0;
+  bottom: 1rem;
+  right: 1rem;
+  top: auto;
+  left: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(28, 20, 13, 0.25);
-  transition: opacity 400ms ease;
   pointer-events: none;
+  transition: opacity 400ms ease;
 }
-.video-overlay.is-hidden {
-  opacity: 0;
-}
-.video-play-icon {
-  width: 72px;
-  height: 72px;
+.video-sound-icon {
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--brown);
-  font-size: 1.6rem;
-  padding-left: 4px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 1.1rem;
+  backdrop-filter: blur(8px);
   transition: transform 300ms var(--ease-out);
 }
-.video-wrap:hover .video-play-icon {
+.video-overlay.is-muted .video-sound-icon::after {
+  content: '🔇';
+}
+.video-overlay.is-unmuted .video-sound-icon::after {
+  content: '🔊';
+}
+.video-overlay .video-sound-icon {
+  font-size: 0;
+}
+.video-overlay .video-sound-icon::after {
+  font-size: 1.1rem;
+}
+.video-wrap:hover .video-sound-icon {
   transform: scale(1.08);
 }
 
@@ -330,11 +340,6 @@ button { font: inherit; }
   }
   .video-wrap {
     border-radius: 14px;
-  }
-  .video-play-icon {
-    width: 56px;
-    height: 56px;
-    font-size: 1.2rem;
   }
 }
 
