@@ -320,6 +320,23 @@
       dots.forEach(function (dot, i) {
         dot.addEventListener("click", function () { show(i); start(); });
       });
+
+      // Swipe: more than 50px sideways (and more sideways than vertical) changes slide
+      var startX = 0, startY = 0;
+      carousel.addEventListener("touchstart", function (e) {
+        startX = e.changedTouches[0].screenX;
+        startY = e.changedTouches[0].screenY;
+      }, { passive: true });
+      carousel.addEventListener("touchend", function (e) {
+        var diff = e.changedTouches[0].screenX - startX;
+        var diffY = e.changedTouches[0].screenY - startY;
+        if (Math.abs(diff) > 50 && Math.abs(diff) > Math.abs(diffY)) {
+          show(current + (diff < 0 ? 1 : -1));
+          start();
+          // A photo carousel inside a review handles its own swipe; don't also flip the review
+          e.stopPropagation();
+        }
+      }, { passive: true });
       carousel.addEventListener("mouseenter", function () { paused = true; stop(); });
       carousel.addEventListener("mouseleave", function () { paused = false; start(); });
       carousel.addEventListener("focusin", function () { paused = true; stop(); });
@@ -358,6 +375,20 @@
       rvDots.forEach(function (dot, i) {
         dot.addEventListener("click", function () { showReview(i); rvStart(); });
       });
+
+      var rvStartX = 0, rvStartY = 0;
+      rvContainer.addEventListener("touchstart", function (e) {
+        rvStartX = e.changedTouches[0].screenX;
+        rvStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+      rvContainer.addEventListener("touchend", function (e) {
+        var diff = e.changedTouches[0].screenX - rvStartX;
+        var diffY = e.changedTouches[0].screenY - rvStartY;
+        if (Math.abs(diff) > 50 && Math.abs(diff) > Math.abs(diffY)) {
+          showReview(rvCurrent + (diff < 0 ? 1 : -1));
+          rvStart();
+        }
+      }, { passive: true });
       rvContainer.addEventListener("mouseenter", function () { rvPaused = true; rvStop(); });
       rvContainer.addEventListener("mouseleave", function () { rvPaused = false; rvStart(); });
       rvContainer.addEventListener("focusin", function () { rvPaused = true; rvStop(); });
