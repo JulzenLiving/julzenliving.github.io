@@ -12,7 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="preload" as="image" href="hero.jpg" />
+  <link rel="preload" as="image" href="hero-mobile.jpg" media="(max-width: 767px)" />
+  <link rel="preload" as="image" href="hero.jpg" media="(min-width: 768px)" />
   <link rel="stylesheet" href="style.css" />
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -29,7 +30,10 @@
     <!-- HERO -->
     <section class="hero">
       <div class="hero-media" aria-hidden="true">
-        <img src="hero.jpg" alt="" fetchpriority="high" />
+        <picture>
+          <source media="(max-width: 767px)" srcset="hero-mobile.jpg" />
+          <img src="hero.jpg" alt="" fetchpriority="high" />
+        </picture>
       </div>
       <div class="hero-shade" aria-hidden="true"></div>
       <div class="hero-content">

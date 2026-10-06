@@ -112,6 +112,7 @@ button { font: inherit; }
   background: var(--dark);
 }
 .hero-media { position: absolute; inset: 0; }
+.hero-media picture { display: block; height: 100%; }
 .hero-media img {
   object-position: 75% center;
   transform-origin: 75% center;
@@ -159,6 +160,11 @@ button { font: inherit; }
 }
 /* .hero-cta also needs the press transform, so its entrance ends with fill none */
 .hero-cta { animation-fill-mode: backwards; }
+
+/* hero-mobile.jpg is framed for phones; the 75% shift only applies to hero.jpg on tablets */
+@media (max-width: 767px) {
+  .hero-media img { object-position: center center; transform-origin: center center; }
+}
 
 @media (min-width: 900px) {
   .hero { align-items: center; }
