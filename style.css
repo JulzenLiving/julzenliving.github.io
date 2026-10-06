@@ -280,19 +280,19 @@ button { font: inherit; }
 .rating.is-pending .rstar { opacity: 0; transform: translateY(6px) scale(0.92); }
 
 /* --- Review carousel: one review at a time --- */
-/* Reviews carousel: only the active review is in the flow, so the
-   container takes the active review's height */
-.rv-list { position: relative; max-width: 1120px; margin: 0 auto; }
+/* Reviews carousel: every slide sits in the same grid cell, so the block
+   always has the height of the longest review and never jumps or overlaps
+   the next section while slides crossfade */
+.rv-list { display: grid; max-width: 1120px; margin: 0 auto; }
 
 .rv {
+  grid-area: 1 / 1;
   display: flex; flex-direction: column; gap: 1.25rem;
   opacity: 0; visibility: hidden;
-  position: absolute; top: 0; left: 0; right: 0;
   transition: opacity 700ms ease, visibility 0s linear 700ms;
 }
 .rv.rv-active {
   opacity: 1; visibility: visible;
-  position: relative;
   transition: opacity 700ms ease, visibility 0s;
 }
 .rv .rv-text {
@@ -334,12 +334,16 @@ button { font: inherit; }
 .verified::before { content: "✓"; font-weight: 500; font-size: 0.75rem; }
 
 /* Review image — smaller, landscape on mobile */
+/* Every review photo is the same square, cropped to the product */
 .rv-media {
   position: relative; overflow: hidden; isolation: isolate;
-  aspect-ratio: 16 / 9; border-radius: 12px; background: var(--sand);
-  max-height: 180px;
+  aspect-ratio: 1 / 1; width: 220px; max-height: 220px; margin: 0 auto;
+  border-radius: 14px; background: var(--sand);
 }
-.rv-media img { position: absolute; inset: 0; }
+.rv-media img {
+  position: absolute; inset: 0;
+  object-fit: cover; object-position: center center;
+}
 .rv-slide {
   opacity: 0; visibility: hidden;
   transition: opacity 700ms ease, visibility 0s linear 700ms;
@@ -383,7 +387,7 @@ button { font: inherit; }
 }
 
 .rv-carousel-dots {
-  margin-top: 2rem;
+  grid-row: 2; margin-top: 2rem;
 }
 
 /* Desktop: text left, image right, image taller */
@@ -393,8 +397,8 @@ button { font: inherit; }
     align-items: center; gap: clamp(3rem, 7vw, 5rem);
   }
   .rv-media {
-    aspect-ratio: 4 / 5; border-radius: 18px;
-    max-height: 380px;
+    aspect-ratio: 1 / 1; width: 320px; max-height: 320px;
+    border-radius: 18px;
   }
   .rv-text { max-width: 34rem; }
 }
