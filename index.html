@@ -1,104 +1,129 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JULZEN — El hogar que recuerda</title>
-  <meta name="description" content="Libros decorativos con almacenamiento oculto. Diseño premium para el hogar moderno." />
+  <title>JULZEN — The home that remembers</title>
+  <meta name="description" content="Decorative books with hidden storage. Premium design meets invisible function." />
+  <meta property="og:title" content="JULZEN — The home that remembers" />
+  <meta property="og:description" content="Decorative books with hidden storage. Premium design meets invisible function." />
+  <meta property="og:image" content="hero.jpg" />
+  <meta name="theme-color" content="#FDFAF5" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="hero.jpg" />
   <link rel="stylesheet" href="style.css" />
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
   <!-- NAV -->
-  <nav>
-    <div class="logo">JULZEN</div>
-    <a href="#capture" class="nav-cta">Únete</a>
-  </nav>
+  <header class="site-nav" id="nav">
+    <a href="#top" class="logo" aria-label="JULZEN home">JULZEN</a>
+    <a href="#" class="nav-lang" lang="es" title="Versión en español — próximamente">ES</a>
+  </header>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-img-wrap">
-      <img src="hero.jpg" alt="Libros decorativos JULZEN sobre mesa de centro" />
-      <div class="hero-overlay"></div>
-    </div>
-    <div class="hero-content">
-      <p class="hero-pre">Colección 2025</p>
-      <h1>El hogar<br /><em>que recuerda</em></h1>
-      <p class="hero-sub">Libros decorativos con almacenamiento oculto.<br />Diseño premium. Funcionalidad invisible.</p>
-      <div class="hero-actions">
-        <a href="#capture" class="btn-primary">Descubre la colección</a>
-        <a href="https://www.amazon.com/dp/B0FD91PWK6" target="_blank" rel="noopener" class="btn-secondary">Comprar en Amazon →</a>
-      </div>
-    </div>
-  </section>
+  <main id="top">
 
-  <!-- CONCEPTO -->
-  <section class="concept">
-    <div class="concept-inner">
-      <span class="label">El concepto</span>
-      <h2>Belleza que guarda secretos</h2>
-      <p>Cada libro JULZEN es una pieza de decoración que esconde un espacio privado. Para lo que usas todos los días — y no quieres ver.</p>
-    </div>
-  </section>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-media" aria-hidden="true">
+        <img src="hero.jpg" alt="" fetchpriority="high" />
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">The home<br /><em>that remembers.</em></h1>
+        <p class="hero-sub">Decorative books with hidden storage. Premium design meets invisible function.</p>
+        <a href="https://www.amazon.com/dp/B0FD91PWK6" target="_blank" rel="noopener" class="btn btn-light hero-cta">
+          Shop on Amazon <span class="btn-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
 
-  <!-- GALERÍA -->
-  <section class="gallery">
-    <div class="gallery-grid">
-      <div class="gallery-item main">
-        <img src="gallery1.jpg" alt="Colección JULZEN" />
+    <!-- SPACES -->
+    <section class="spaces" aria-labelledby="spaces-title">
+      <h2 id="spaces-title" class="section-title reveal">Designed for every space</h2>
+      <div class="spaces-grid">
+        <figure class="tile tile-tall reveal" style="--i:0">
+          <img src="gallery1.jpg" alt="JULZEN decorative books styled on a bookshelf" loading="lazy" decoding="async" />
+          <figcaption>Bookshelf</figcaption>
+        </figure>
+        <figure class="tile reveal" style="--i:1">
+          <img src="gallery2.jpg" alt="JULZEN decorative books on a wall shelf" loading="lazy" decoding="async" />
+          <figcaption>Shelf</figcaption>
+        </figure>
+        <figure class="tile reveal" style="--i:2">
+          <img src="scene-tv.jpg" alt="JULZEN book stack on a wooden TV console" loading="lazy" decoding="async" />
+          <figcaption>TV Console</figcaption>
+        </figure>
+        <figure class="tile reveal" style="--i:3">
+          <img src="scene-coffee.jpg" alt="JULZEN book stack with knot and wood beads on a coffee table" loading="lazy" decoding="async" />
+          <figcaption>Coffee Table</figcaption>
+        </figure>
+        <figure class="tile reveal" style="--i:4">
+          <img src="gallery3.jpg" alt="JULZEN decorative books on an entryway console" loading="lazy" decoding="async" />
+          <figcaption>Entryway</figcaption>
+        </figure>
       </div>
-      <div class="gallery-text">
-        <span class="label">Diseño</span>
-        <h3>Cada detalle, pensado</h3>
-        <p>Paleta terrosa. Tipografía editorial. Materiales que envejecen bien. JULZEN no decora — define el espacio.</p>
-        <a href="https://www.amazon.com/dp/B0FD91PWK6" target="_blank" rel="noopener" class="btn-outline">Ver en Amazon →</a>
-      </div>
-      <div class="gallery-item">
-        <img src="gallery2.jpg" alt="Detalle JULZEN" />
-      </div>
-      <div class="gallery-item">
-        <img src="gallery3.jpg" alt="Ambientación JULZEN" />
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- VALORES -->
-  <section class="values">
-    <div class="values-inner">
-      <div class="value">
-        <span class="value-num">01</span>
-        <h4>Almacenamiento oculto</h4>
-        <p>El interior guarda lo que el exterior no muestra. Orden sin esfuerzo.</p>
-      </div>
-      <div class="value">
-        <span class="value-num">02</span>
-        <h4>Diseño editorial</h4>
-        <p>Tipografías, paletas y proporciones pensadas para cualquier estilo de hogar.</p>
-      </div>
-      <div class="value">
-        <span class="value-num">03</span>
-        <h4>Coleccionable</h4>
-        <p>Cada título es único. Se apilan, se combinan, se convierten en el punto focal de la sala.</p>
-      </div>
-    </div>
-  </section>
+    <!-- REVIEWS -->
+    <section class="reviews" aria-labelledby="reviews-title">
+      <h2 id="reviews-title" class="section-title reveal">What our customers say</h2>
 
-  <!-- CAPTURA EMAIL -->
-  <section class="capture" id="capture">
-    <div class="capture-inner">
-      <span class="label">Comunidad JULZEN</span>
-      <h2>Acceso anticipado<br />a la próxima colección</h2>
-      <p>Suscríbete y recibe antes que nadie los nuevos títulos, descuentos exclusivos y la guía gratuita: <em>"Cómo decorar con libros — 5 estilos para el hogar moderno"</em></p>
-      <form action="https://formspree.io/f/mgoqwkvl" method="POST" class="email-form">
-        <input type="email" name="email" placeholder="tu@correo.com" required />
-        <button type="submit">Quiero acceso →</button>
-      </form>
-      <p class="form-note">Sin spam. Solo JULZEN.</p>
-    </div>
-  </section>
+      <div class="carousel reveal" aria-roledescription="carousel" aria-label="Customer reviews" data-carousel>
+        <div class="carousel-track">
+          <figure class="review is-active" aria-roledescription="slide" aria-label="1 of 4">
+            <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>“Beautiful! Excellent quality and beautifully crafted. Every piece looks well made and complements the others perfectly. Highly recommend 100%!”</blockquote>
+            <figcaption><span class="review-name">Edwin</span><span class="verified">Verified Purchase</span></figcaption>
+          </figure>
+          <figure class="review" aria-roledescription="slide" aria-label="2 of 4" aria-hidden="true">
+            <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>“The books, beads and knot are sturdy, beautiful color and looks luxurious. Great for Organic Modern Vibe.”</blockquote>
+            <figcaption><span class="review-name">Sharon Taylor</span><span class="verified">Verified Purchase</span></figcaption>
+          </figure>
+          <figure class="review" aria-roledescription="slide" aria-label="3 of 4" aria-hidden="true">
+            <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>“Super cute. The perfect piece for my wall shelves.”</blockquote>
+            <figcaption><span class="review-name">Kindle Customer</span><span class="verified">Verified Purchase</span></figcaption>
+          </figure>
+          <figure class="review" aria-roledescription="slide" aria-label="4 of 4" aria-hidden="true">
+            <div class="stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>“Great, the quality and color surpass my expectations.”</blockquote>
+            <figcaption><span class="review-name">Amazon Customer</span><span class="verified">Verified Purchase</span></figcaption>
+          </figure>
+        </div>
+        <div class="carousel-dots" role="group" aria-label="Choose review">
+          <button type="button" class="dot is-active" aria-label="Review 1" aria-current="true"></button>
+          <button type="button" class="dot" aria-label="Review 2"></button>
+          <button type="button" class="dot" aria-label="Review 3"></button>
+          <button type="button" class="dot" aria-label="Review 4"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOIN -->
+    <section class="join" id="join" aria-labelledby="join-title">
+      <div class="join-inner">
+        <h2 id="join-title" class="section-title reveal">Join the JULZEN community</h2>
+        <p class="join-sub reveal" style="--i:1">Be the first to know about new collections and exclusive offers.</p>
+        <form action="https://formspree.io/f/mgoqwkvl" method="POST" class="join-form reveal" style="--i:2" data-join-form>
+          <label for="join-email" class="sr-only">Email address</label>
+          <input id="join-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+          <button type="submit" class="btn btn-dark">Join Us</button>
+        </form>
+        <p class="join-status" role="status" aria-live="polite" data-join-status></p>
+        <div class="reveal" style="--i:3">
+          <a href="https://www.amazon.com/dp/B0FD91PWK6" target="_blank" rel="noopener" class="btn btn-dark btn-lg">
+            Shop on Amazon <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
 
   <!-- FOOTER -->
   <footer>
@@ -107,11 +132,97 @@
       <p class="footer-tagline">Inspiring spaces, inspiring lives.</p>
       <div class="footer-links">
         <a href="https://www.amazon.com/dp/B0FD91PWK6" target="_blank" rel="noopener">Amazon</a>
-        <a href="mailto:julzenliving@gmail.com">Contacto</a>
+        <span aria-hidden="true">|</span>
+        <a href="mailto:julzenliving@gmail.com">Contact</a>
       </div>
       <p class="footer-copy">© 2025 JULZEN. All rights reserved.</p>
     </div>
   </footer>
 
+  <script>
+  (function () {
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Nav: solid background once the hero scrolls away
+    var nav = document.getElementById('nav');
+    var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 40); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Reveal on scroll
+    var revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+      revealEls.forEach(function (el) { io.observe(el); });
+    } else {
+      revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+    }
+
+    // Reviews carousel: fade every 4s, pause on hover/focus and hidden tab
+    var carousel = document.querySelector('[data-carousel]');
+    if (carousel) {
+      var slides = carousel.querySelectorAll('.review');
+      var dots = carousel.querySelectorAll('.dot');
+      var current = 0, timer = null, paused = false;
+
+      var show = function (index) {
+        slides[current].classList.remove('is-active');
+        slides[current].setAttribute('aria-hidden', 'true');
+        dots[current].classList.remove('is-active');
+        dots[current].removeAttribute('aria-current');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('is-active');
+        slides[current].removeAttribute('aria-hidden');
+        dots[current].classList.add('is-active');
+        dots[current].setAttribute('aria-current', 'true');
+      };
+      var start = function () {
+        stop();
+        if (!paused && !document.hidden) timer = setInterval(function () { show(current + 1); }, 4000);
+      };
+      var stop = function () { clearInterval(timer); timer = null; };
+
+      dots.forEach(function (dot, i) {
+        dot.addEventListener('click', function () { show(i); start(); });
+      });
+      carousel.addEventListener('mouseenter', function () { paused = true; stop(); });
+      carousel.addEventListener('mouseleave', function () { paused = false; start(); });
+      carousel.addEventListener('focusin', function () { paused = true; stop(); });
+      carousel.addEventListener('focusout', function () { paused = false; start(); });
+      document.addEventListener('visibilitychange', start);
+      if (!reduceMotion) start();
+    }
+
+    // Email form: submit in place, fall back to normal POST
+    var form = document.querySelector('[data-join-form]');
+    var status = document.querySelector('[data-join-status]');
+    if (form && window.fetch) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var button = form.querySelector('button');
+        button.disabled = true;
+        status.textContent = '';
+        fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
+          .then(function (res) {
+            if (!res.ok) throw new Error();
+            form.reset();
+            form.classList.add('is-done');
+            status.textContent = 'Welcome to JULZEN. Check your inbox soon.';
+          })
+          .catch(function () {
+            status.textContent = 'Something went wrong. Please try again.';
+          })
+          .then(function () { button.disabled = false; });
+      });
+    }
+  })();
+  </script>
 </body>
 </html>
