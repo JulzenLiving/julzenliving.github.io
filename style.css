@@ -278,36 +278,34 @@ button { font: inherit; }
   width: 50%; overflow: hidden; color: var(--gold);
 }
 .rating.is-pending .rstar { opacity: 0; transform: translateY(6px) scale(0.92); }
-.carousel { max-width: 760px; margin: 0 auto; text-align: center; }
-.carousel-track { display: grid; }
-.review {
-  grid-area: 1 / 1;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  opacity: 0; transform: translateY(6px); filter: blur(4px);
-  visibility: hidden;
-  transition:
-    opacity 700ms ease,
-    transform 700ms var(--ease-out),
-    filter 700ms ease,
-    visibility 0s linear 700ms;
+/* One review per row: text left, photo right (photo on top on mobile) */
+.rv-list { max-width: 1120px; margin: 0 auto; }
+.rv {
+  display: flex; flex-direction: column; gap: 1.75rem;
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+  border-top: 1px solid rgba(123, 85, 53, 0.14);
 }
-.review.is-active {
-  opacity: 1; transform: none; filter: none; visibility: visible;
-  transition-delay: 0s;
+.rv:first-child { border-top: 0; padding-top: 0; }
+.rv-text { text-align: left; }
+.rv-media { order: -1; }
+
+.rv-index {
+  display: block; margin-bottom: 1rem;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; color: var(--camel);
+  font-variant-numeric: tabular-nums;
 }
-.stars {
-  color: var(--gold); font-size: 1.05rem; letter-spacing: 0.3em;
-  margin-bottom: 1.5rem; padding-left: 0.3em;
+.rv-stars {
+  color: var(--gold); font-size: 1.2rem; letter-spacing: 0.22em;
+  margin-bottom: 1.25rem;
 }
-.review blockquote {
+.rv-star-off { color: rgba(201, 162, 74, 0.25); }
+.rv-text blockquote {
   font-family: var(--font-serif); font-style: italic; font-weight: 300;
-  font-size: clamp(1.4rem, 3.6vw, 2.1rem); line-height: 1.35;
-  color: var(--dark); margin-bottom: 1.75rem; text-wrap: balance;
+  font-size: clamp(1.45rem, 3.2vw, 2.15rem); line-height: 1.32;
+  color: var(--dark); margin-bottom: 1.5rem; text-wrap: pretty;
 }
-.review figcaption {
-  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-}
-.review-name {
+.rv-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.rv-name {
   font-size: 0.8rem; font-weight: 500; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--dark);
 }
@@ -318,9 +316,50 @@ button { font: inherit; }
   padding: 0.3rem 0.7rem; border-radius: 999px;
   background: rgba(196, 149, 106, 0.16);
 }
-.verified::before {
-  content: "✓"; font-weight: 500; font-size: 0.75rem;
+.verified::before { content: "✓"; font-weight: 500; font-size: 0.75rem; }
+
+.rv-media {
+  position: relative; overflow: hidden; isolation: isolate;
+  aspect-ratio: 4 / 5; border-radius: 18px; background: var(--sand);
 }
+.rv-media img { position: absolute; inset: 0; }
+.rv-slide {
+  opacity: 0; visibility: hidden;
+  transition: opacity 700ms ease, visibility 0s linear 700ms;
+}
+.rv-slide.is-active {
+  opacity: 1; visibility: visible;
+  transition: opacity 700ms ease, visibility 0s;
+}
+.rv-dots {
+  position: absolute; left: 0; right: 0; bottom: 0.6rem; z-index: 2;
+  margin: 0;
+}
+.rv-dots .dot::before { background: rgba(255, 255, 255, 0.55); }
+.rv-dots .dot.is-active::before { background: #fff; }
+
+/* Photo reveal: unclip from the bottom while settling from a slight zoom */
+.js .reveal-img {
+  clip-path: inset(0 0 100% 0 round 18px);
+  transition: clip-path 1100ms var(--ease-in-out);
+}
+.js .reveal-img img {
+  transform: scale(1.12);
+  transition: transform 1400ms var(--ease-out), opacity 700ms ease, visibility 0s linear 700ms;
+}
+.js .reveal-img.is-visible { clip-path: inset(0 0 0 0 round 18px); }
+.js .reveal-img.is-visible img { transform: none; }
+.js .reveal-img .rv-slide.is-active { transition: transform 1400ms var(--ease-out), opacity 700ms ease, visibility 0s; }
+
+@media (min-width: 820px) {
+  .rv {
+    display: grid; grid-template-columns: 1fr minmax(0, 460px);
+    align-items: center; gap: clamp(3rem, 7vw, 6.5rem);
+  }
+  .rv-media { order: 0; }
+  .rv-text .reveal, .rv-text { max-width: 34rem; }
+}
+
 .carousel-dots {
   display: flex; justify-content: center; gap: 0.25rem;
   margin-top: 2.5rem;
@@ -417,7 +456,9 @@ footer {
   .hero-media img { animation: none; }
   .hero-title, .hero-sub, .hero-cta { animation-name: fade; }
   .js .reveal { transform: none; transition: opacity 400ms ease; transition-delay: 0s; }
-  .review { transform: none; filter: none; }
+  .js .reveal-img { clip-path: none; opacity: 0; transition: opacity 400ms ease; }
+  .js .reveal-img.is-visible { opacity: 1; }
+  .js .reveal-img img { transform: none; }
   .scene img, .scene figcaption { transform: none; }
   .btn-arrow { transition: none; }
 }
