@@ -283,7 +283,7 @@ button { font: inherit; }
 /* Reviews carousel: every slide sits in the same grid cell, so the block
    always has the height of the longest review and never jumps or overlaps
    the next section while slides crossfade */
-.rv-list { display: grid; max-width: 1120px; margin: 0 auto; }
+.rv-list { display: grid; max-width: 1120px; margin: 0 auto; min-height: 480px; }
 
 .rv {
   grid-area: 1 / 1;
@@ -402,6 +402,7 @@ button { font: inherit; }
 
 /* Desktop: text left, image right, image taller */
 @media (min-width: 820px) {
+  .rv-list { min-height: 420px; }
   .rv {
     display: grid; grid-template-columns: 1fr minmax(0, 380px);
     align-items: center; gap: clamp(3rem, 7vw, 5rem);
