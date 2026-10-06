@@ -102,7 +102,19 @@
 
         if (!response.ok) throw new Error('Web3Forms error');
 
-        /* 2. Send auto-reply email via EmailJS */
+        /* 2. Save to Google Sheets (permanent database) */
+        try {
+          await fetch('https://script.google.com/macros/s/AKfycbxjSsf7b74N1aJ9Z7x8KDok7GhuGza8djLTtkt0mw64pyqPOIpkieSjRkVe1Hn4IOEk/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: nameVal, email: emailVal })
+          });
+        } catch (sheetErr) {
+          console.warn('Google Sheets save failed:', sheetErr);
+        }
+
+        /* 3. Send auto-reply email via EmailJS */
         try {
           await emailjs.send('service_69zfbbc', 'template_b7ejj08', {
             name: nameVal,
@@ -115,7 +127,7 @@
           console.warn('EmailJS autoresponder failed:', emailErr);
         }
 
-        /* 3. Show the discount code */
+        /* 4. Show the discount code */
         form.style.display = 'none';
         result.hidden = false;
         result.style.display = 'block';
