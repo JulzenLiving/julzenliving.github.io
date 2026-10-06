@@ -356,6 +356,32 @@ button { font: inherit; }
 .rv-dots .dot.is-active::before { background: #fff; }
 
 /* Review carousel navigation dots */
+/* Last slide of the reviews carousel: a centered CTA, not a review */
+.rv-cta-slide {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 280px;
+  text-align: center;
+}
+.rv-cta-slide.rv-active {
+  display: flex !important;
+}
+.rv-cta-content {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.rv-cta-text {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1.3;
+  color: var(--dark);
+  margin-bottom: 2rem;
+  text-wrap: balance;
+}
+
 .rv-carousel-dots {
   margin-top: 2rem;
 }
