@@ -102,6 +102,13 @@
           <source src="JULZEN_VideoADS.MP4" type="video/mp4" />
         </video>
         <div class="video-sound-toggle" role="switch" aria-checked="false" tabindex="0" aria-label="Video sound">
+          <span class="sound-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" />
+              <g class="si-mute"><line x1="22" y1="9" x2="16" y2="15" /><line x1="16" y1="9" x2="22" y2="15" /></g>
+              <g class="si-waves"><path d="M15.5 8.5a5 5 0 0 1 0 7" /><path d="M19 5a10 10 0 0 1 0 14" /></g>
+            </svg>
+          </span>
           <span class="sound-label sound-off-label">OFF</span>
           <div class="sound-switch">
             <div class="sound-knob"></div>
@@ -482,6 +489,7 @@
         var toggleSound = function () {
           video.muted = !video.muted;
           soundSwitch.classList.toggle('is-on', !video.muted);
+          soundToggle.classList.toggle('is-unmuted', !video.muted);
           offLabel.classList.toggle('is-active', video.muted);
           onLabel.classList.toggle('is-active', !video.muted);
           soundToggle.setAttribute('aria-checked', String(!video.muted));

@@ -312,6 +312,22 @@ button { font: inherit; }
 .video-sound-toggle:hover {
   background: rgba(0, 0, 0, 0.6);
 }
+.sound-icon {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 200ms ease;
+  line-height: 1;
+}
+.video-sound-toggle.is-unmuted .sound-icon {
+  color: #fff;
+}
+.sound-icon svg { display: block; width: 13px; height: 13px; }
+/* Muted: speaker with an X. Sound on: speaker with waves */
+.sound-icon .si-waves { display: none; }
+.video-sound-toggle.is-unmuted .si-waves { display: inline; }
+.video-sound-toggle.is-unmuted .si-mute { display: none; }
+/* Invisible larger tap area so the compact switch stays easy to hit */
+.video-sound-toggle::after { content: ""; position: absolute; inset: -8px; }
 .sound-label {
   font-family: var(--font-sans);
   font-size: 0.55rem;
@@ -348,6 +364,16 @@ button { font: inherit; }
 }
 .sound-switch.is-on .sound-knob {
   transform: translateX(12px);
+}
+
+/* Mobile: compact switch tucked into the corner, clear of the video captions */
+@media (max-width: 819px) {
+  .video-sound-toggle { bottom: 0.45rem; right: 0.45rem; gap: 0.25rem; padding: 0.2rem 0.4rem; }
+  .sound-icon svg { width: 10px; height: 10px; }
+  .sound-label { font-size: 0.45rem; letter-spacing: 0.12em; }
+  .sound-switch { width: 20px; height: 12px; }
+  .sound-knob { top: 2px; left: 2px; width: 8px; height: 8px; }
+  .sound-switch.is-on .sound-knob { transform: translateX(8px); }
 }
 
 @media (max-width: 819px) {
