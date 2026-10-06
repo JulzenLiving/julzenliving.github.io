@@ -104,15 +104,16 @@
         </div>
       </div>
 
-      <div class="rv-list">
-        <article class="rv">
-          <div class="rv-text reveal">
+      <!-- REVIEWS CAROUSEL: one review at a time, rotating every 3s -->
+      <div class="rv-list reveal" style="--i:2" data-rv-carousel>
+        <article class="rv rv-active">
+          <div class="rv-text">
             <span class="rv-index">01 / 06</span>
             <div class="rv-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
             <blockquote>“The idea book decor for your coffee table. The books, beads and knot are sturdy, beautiful color and looks luxurious. Great for Organic Modern Vibe.”</blockquote>
             <p class="rv-meta"><span class="rv-name">Sharon Taylor</span><span class="verified">Verified Purchase</span></p>
           </div>
-          <div class="rv-media reveal-img" aria-roledescription="carousel" aria-label="Photos from Sharon Taylor" data-carousel="1500">
+          <div class="rv-media" aria-roledescription="carousel" aria-label="Photos from Sharon Taylor" data-carousel="1500">
             <img class="rv-slide is-active" data-slide src="review-1.jpg" alt="Customer photo from Sharon Taylor (1 of 3)" loading="lazy" decoding="async" />
             <img class="rv-slide" data-slide src="review-1-2.jpg" alt="Customer photo from Sharon Taylor (2 of 3)" loading="lazy" decoding="async" />
             <img class="rv-slide" data-slide src="review-1-3.jpg" alt="Customer photo from Sharon Taylor (3 of 3)" loading="lazy" decoding="async" />
@@ -125,61 +126,61 @@
         </article>
 
         <article class="rv">
-          <div class="rv-text reveal">
+          <div class="rv-text">
             <span class="rv-index">02 / 06</span>
             <div class="rv-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
             <blockquote>“Excellent for interior design idea.”</blockquote>
             <p class="rv-meta"><span class="rv-name">Marlon Lee</span><span class="verified">Verified Purchase</span></p>
           </div>
-          <div class="rv-media reveal-img">
+          <div class="rv-media">
             <img src="review-2.jpg" alt="Customer photo from Marlon Lee: JULZEN books on a TV console" loading="lazy" decoding="async" />
           </div>
         </article>
 
         <article class="rv">
-          <div class="rv-text reveal">
+          <div class="rv-text">
             <span class="rv-index">03 / 06</span>
             <div class="rv-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
             <blockquote>“Beautiful! Excellent quality and beautifully crafted. The set includes three decorative books, a stylish wood knot, and a lovely bead garland. Every piece looks well made and complements the others perfectly. Highly recommend 100%!”</blockquote>
             <p class="rv-meta"><span class="rv-name">Edwin</span><span class="verified">Verified Purchase</span></p>
           </div>
-          <div class="rv-media reveal-img">
+          <div class="rv-media">
             <img src="review-3.jpg" alt="Customer photo from Edwin" loading="lazy" decoding="async" />
           </div>
         </article>
 
         <article class="rv">
-          <div class="rv-text reveal">
+          <div class="rv-text">
             <span class="rv-index">04 / 06</span>
             <div class="rv-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
             <blockquote>“I love these books and book covers. It looks great in my China hutch and the decor look I was going for. I recommend purchasing this product.”</blockquote>
             <p class="rv-meta"><span class="rv-name">Debra</span><span class="verified">Verified Purchase</span></p>
           </div>
-          <div class="rv-media reveal-img">
+          <div class="rv-media">
             <img src="review-4.jpg" alt="Customer photo from Debra: JULZEN books in a China hutch" loading="lazy" decoding="async" />
           </div>
         </article>
 
         <article class="rv">
-          <div class="rv-text reveal">
+          <div class="rv-text">
             <span class="rv-index">05 / 06</span>
             <div class="rv-stars" role="img" aria-label="4 out of 5 stars">★★★★<span class="rv-star-off">★</span></div>
             <blockquote>“This set decorates beautifully and the colors are just gorgeous. Everything feels high quality and well made. The smallest book is perfect for storing TV remotes, which I love.”</blockquote>
             <p class="rv-meta"><span class="rv-name">Ysantiago</span><span class="verified">Verified Purchase</span></p>
           </div>
-          <div class="rv-media reveal-img">
+          <div class="rv-media">
             <img src="review-5.jpg" alt="Customer photo from Ysantiago: JULZEN books and knot on a shelf" loading="lazy" decoding="async" />
           </div>
         </article>
 
         <article class="rv">
-          <div class="rv-text reveal">
+          <div class="rv-text">
             <span class="rv-index">06 / 06</span>
             <div class="rv-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
             <blockquote lang="es">“No puedo estar más feliz con el resultado de decoración a mi mesa. Demasiado hermoso.”</blockquote>
             <p class="rv-meta"><span class="rv-name">Aida</span><span class="verified">Verified Purchase</span></p>
           </div>
-          <div class="rv-media reveal-img" aria-roledescription="carousel" aria-label="Photos from Aida" data-carousel="1500">
+          <div class="rv-media" aria-roledescription="carousel" aria-label="Photos from Aida" data-carousel="1500">
             <img class="rv-slide is-active" data-slide src="review-6.jpg" alt="Customer photo from Aida (1 of 2)" loading="lazy" decoding="async" />
             <img class="rv-slide" data-slide src="review-6-1.jpg" alt="Customer photo from Aida (2 of 2)" loading="lazy" decoding="async" />
             <div class="carousel-dots rv-dots" role="group" aria-label="Choose photo">
@@ -188,6 +189,16 @@
             </div>
           </div>
         </article>
+
+        <!-- Review carousel dots -->
+        <div class="carousel-dots rv-carousel-dots" role="group" aria-label="Choose review">
+          <button type="button" class="dot is-active" aria-label="Review 1" aria-current="true"></button>
+          <button type="button" class="dot" aria-label="Review 2"></button>
+          <button type="button" class="dot" aria-label="Review 3"></button>
+          <button type="button" class="dot" aria-label="Review 4"></button>
+          <button type="button" class="dot" aria-label="Review 5"></button>
+          <button type="button" class="dot" aria-label="Review 6"></button>
+        </div>
       </div>
     </section>
 
@@ -237,7 +248,7 @@
     window.addEventListener('scroll', onScroll, { passive: true });
 
     // Reveal on scroll
-    var revealEls = document.querySelectorAll('.reveal, .reveal-img');
+    var revealEls = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
@@ -278,7 +289,7 @@
       }
     }
 
-    // Carousels: crossfade on an interval, pause on hover/focus and hidden tab
+    // Mini-carousels (scenes + review photos): crossfade on an interval
     document.querySelectorAll("[data-carousel]").forEach(function (carousel) {
       var slides = carousel.querySelectorAll("[data-slide]");
       var dots = carousel.querySelectorAll(".dot");
@@ -316,6 +327,44 @@
       document.addEventListener("visibilitychange", start);
       start();
     });
+
+    // REVIEWS CAROUSEL: one review visible at a time, crossfade every 3 seconds
+    var rvContainer = document.querySelector("[data-rv-carousel]");
+    if (rvContainer) {
+      var reviews = rvContainer.querySelectorAll(".rv");
+      var rvDots = rvContainer.querySelectorAll(".rv-carousel-dots .dot");
+      var rvCurrent = 0, rvTimer = null, rvPaused = false;
+
+      var showReview = function (index) {
+        reviews[rvCurrent].classList.remove("rv-active");
+        if (rvDots[rvCurrent]) {
+          rvDots[rvCurrent].classList.remove("is-active");
+          rvDots[rvCurrent].removeAttribute("aria-current");
+        }
+        rvCurrent = (index + reviews.length) % reviews.length;
+        reviews[rvCurrent].classList.add("rv-active");
+        if (rvDots[rvCurrent]) {
+          rvDots[rvCurrent].classList.add("is-active");
+          rvDots[rvCurrent].setAttribute("aria-current", "true");
+        }
+      };
+      var rvStop = function () { clearInterval(rvTimer); rvTimer = null; };
+      var rvStart = function () {
+        rvStop();
+        if (!rvPaused && !document.hidden && !reduceMotion)
+          rvTimer = setInterval(function () { showReview(rvCurrent + 1); }, 3000);
+      };
+
+      rvDots.forEach(function (dot, i) {
+        dot.addEventListener("click", function () { showReview(i); rvStart(); });
+      });
+      rvContainer.addEventListener("mouseenter", function () { rvPaused = true; rvStop(); });
+      rvContainer.addEventListener("mouseleave", function () { rvPaused = false; rvStart(); });
+      rvContainer.addEventListener("focusin", function () { rvPaused = true; rvStop(); });
+      rvContainer.addEventListener("focusout", function () { rvPaused = false; rvStart(); });
+      document.addEventListener("visibilitychange", rvStart);
+      rvStart();
+    }
 
     // Email form: submit in place, fall back to normal POST
     var form = document.querySelector('[data-join-form]');
