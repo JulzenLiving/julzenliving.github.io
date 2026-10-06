@@ -301,6 +301,16 @@ button { font: inherit; }
 }
 .rv.rv-active .rv-text { transform: none; }
 
+/* Mobile: the photo always sits at the bottom of the fixed-height box and the
+   text is centered in the space above, so nothing moves between slides */
+@media (max-width: 819px) {
+  .rv-text {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .rv-media { flex-shrink: 0; }
+}
+
 .rv-text { text-align: left; }
 
 
