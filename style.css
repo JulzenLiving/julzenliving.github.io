@@ -113,14 +113,14 @@ button { font: inherit; }
 }
 .hero-media { position: absolute; inset: 0; }
 .hero-media img {
-  object-position: 60% 70%;
-  transform-origin: 65% 70%;
+  object-position: center 50%;
+  transform-origin: center 50%;
   animation: ken-burns 24s ease-in-out infinite alternate;
   will-change: transform;
 }
 @keyframes ken-burns {
   from { transform: scale(1); }
-  to   { transform: scale(1.1) translate3d(-1%, -1%, 0); }
+  to   { transform: scale(1.08); }
 }
 .hero-shade {
   position: absolute; inset: 0;
