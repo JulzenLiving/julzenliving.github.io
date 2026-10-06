@@ -88,6 +88,9 @@ button { font: inherit; }
   transition: background-color 300ms ease, color 300ms ease, box-shadow 300ms ease;
 }
 .site-nav .logo { color: inherit; font-size: 1.35rem; }
+.logo img { display: block; }
+.site-nav .logo img { filter: brightness(0) invert(1); transition: filter 300ms ease; }
+.site-nav.is-scrolled .logo img { filter: none; }
 .nav-lang {
   font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em;
   padding: 0.4rem 0.2rem; opacity: 0.85;
