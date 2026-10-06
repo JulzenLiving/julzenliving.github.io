@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -25,26 +27,29 @@
   <!-- REWARD -->
   <section class="reward">
     <div class="reward-inner">
-      <span class="label reward-label" data-i18n="reward-label">Exclusive Reward</span>
-      <h1 data-i18n="reward-heading">Welcome to JULZEN.</h1>
-      <p class="reward-sub" data-i18n="reward-sub">Your reward is one step away. Use it, or gift it to anyone who would love our brand.</p>
+      <span class="label reward-label" data-i18n="rewardLabel">Exclusive Reward</span>
+      <h1 data-i18n="rewardTitle">Welcome to JULZEN.</h1>
+      <p class="reward-sub" data-i18n="rewardSub">Your reward is one step away. Use it, or gift it to anyone who would love our brand.</p>
 
       <form id="reward-form" class="reward-form">
-        <input type="text" name="name" placeholder="Your name" required data-i18n="reward-name-input" />
-        <input type="email" name="email" placeholder="you@email.com" required data-i18n="reward-email-input" />
-        <button type="submit" data-i18n="reward-submit">Claim your discount</button>
+        <input type="hidden" name="access_key" value="49cf59be-aedd-4822-bb6e-94411fa30a4e" />
+        <input type="hidden" name="subject" value="New JULZEN Reward Claim" />
+        <input type="hidden" name="from_name" value="JULZEN Reward Page" />
+        <input type="text" name="name" placeholder="Your name" required data-i18n-placeholder="namePlaceholder" />
+        <input type="email" name="email" placeholder="you@email.com" required />
+        <button type="submit" data-i18n="claimBtn">Claim your discount</button>
       </form>
-      <p id="reward-error" class="reward-error" hidden>Something went wrong. Please try again.</p>
+      <p id="reward-error" class="reward-error" hidden data-i18n="rewardError">Something went wrong. Please try again.</p>
 
       <div id="reward-result" class="reward-result" hidden>
-        <p class="reward-result-label" data-i18n="reward-code-label">Your code</p>
+        <p class="reward-result-label" data-i18n="yourCode">Your code</p>
         <div class="reward-code-row">
           <p class="reward-code" id="reward-code-text">JULZENOFF10</p>
-          <button type="button" id="copy-code-btn" class="btn-copy" data-i18n="reward-copy">Copy code</button>
+          <button type="button" id="copy-code-btn" class="btn-copy" data-i18n="copyCode">Copy code</button>
         </div>
-        <p class="reward-note" data-i18n="reward-note">At checkout on Amazon, paste your code in "Gift cards &amp; promotional codes" and click Apply.</p>
-        <p class="reward-review" data-i18n="reward-review-text">Loved it? A quick review on Amazon helps us keep creating.</p>
-        <a href="https://www.amazon.com/dp/B0FD91PWK6" target="_blank" rel="noopener" class="btn-primary reward-review-btn" data-i18n="reward-review-btn">Write a Review</a>
+        <p class="reward-note" data-i18n="rewardNote">At checkout on Amazon, paste your code in "Gift cards & promotional codes" and click Apply.</p>
+        <p class="reward-review" data-i18n="rewardReview">Loved it? A quick review on Amazon helps us keep creating.</p>
+        <a href="https://www.amazon.com/dp/B0FD91PWK6" target="_blank" rel="noopener" class="btn-primary reward-review-btn" data-i18n="writeReview">Write a Review</a>
       </div>
     </div>
   </section>
@@ -53,18 +58,23 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-logo">JULZEN</div>
-      <p class="footer-tagline" data-i18n="footer-tagline">Inspiring spaces, inspiring lives.</p>
+      <p class="footer-tagline" data-i18n="footerTagline">Inspiring spaces, inspiring lives.</p>
       <p class="footer-copy">© 2026 JULZEN. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
+    /* ── EmailJS init ── */
+    emailjs.init('_kQ3n76dVkfGmFhYK');
+
+    /* ── Elements ── */
     const form = document.getElementById('reward-form');
     const errorMsg = document.getElementById('reward-error');
     const result = document.getElementById('reward-result');
     const copyBtn = document.getElementById('copy-code-btn');
     const codeText = document.getElementById('reward-code-text');
 
+    /* ── Form submit → Web3Forms + EmailJS autoresponder ── */
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorMsg.hidden = true;
@@ -73,23 +83,43 @@
       button.disabled = true;
       button.textContent = 'Sending...';
 
+      const nameVal = form.querySelector('[name="name"]').value.trim();
+      const emailVal = form.querySelector('[name="email"]').value.trim();
+
       try {
-        const response = await fetch('https://formspree.io/f/mgoqwkvl', {
+        /* 1. Save to Web3Forms (your database) */
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: new FormData(form)
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            access_key: '49cf59be-aedd-4822-bb6e-94411fa30a4e',
+            subject: 'New JULZEN Reward Claim',
+            from_name: 'JULZEN Reward Page',
+            name: nameVal,
+            email: emailVal
+          })
         });
 
-        if (response.ok) {
-          // .reward-form sets display:flex in style.css, which as an author
-          // rule overrides the UA "[hidden]" rule regardless of specificity —
-          // so the hidden attribute alone never actually hides it. Force it.
-          form.style.display = 'none';
-          result.hidden = false;
-          result.style.display = 'block';
-        } else {
-          throw new Error('Formspree error');
+        if (!response.ok) throw new Error('Web3Forms error');
+
+        /* 2. Send auto-reply email via EmailJS */
+        try {
+          await emailjs.send('service_69zfbbc', 'template_b7ejj08', {
+            name: nameVal,
+            email: emailVal,
+            to_name: nameVal,
+            to_email: emailVal
+          });
+        } catch (emailErr) {
+          // Autoresponder failed but form was saved — still show the code
+          console.warn('EmailJS autoresponder failed:', emailErr);
         }
+
+        /* 3. Show the discount code */
+        form.style.display = 'none';
+        result.hidden = false;
+        result.style.display = 'block';
+
       } catch (err) {
         errorMsg.hidden = false;
         button.disabled = false;
@@ -97,80 +127,60 @@
       }
     });
 
+    /* ── Copy code button ── */
     copyBtn.addEventListener('click', async () => {
       await navigator.clipboard.writeText(codeText.textContent.trim());
       copyBtn.textContent = 'Copied!';
       setTimeout(() => { copyBtn.textContent = 'Copy code'; }, 2000);
     });
 
-    // Language switch for reward page
+    /* ── Language switch ── */
     var rewardTranslations = {
-      'reward-label': { en: 'Exclusive Reward', es: 'Recompensa Exclusiva' },
-      'reward-heading': { en: 'Welcome to JULZEN.', es: 'Bienvenido a JULZEN.' },
-      'reward-sub': {
-        en: 'Your reward is one step away. Use it, or gift it to anyone who would love our brand.',
-        es: 'Tu recompensa está a un paso. Úsala, o regálala a alguien que ame nuestra marca.'
-      },
-      'reward-name-input': { en: 'Your name', es: 'Tu nombre' },
-      'reward-email-input': { en: 'you@email.com', es: 'tu@email.com' },
-      'reward-submit': { en: 'Claim your discount', es: 'Reclamar mi descuento' },
-      'reward-code-label': { en: 'Your code', es: 'Tu código' },
-      'reward-copy': { en: 'Copy code', es: 'Copiar código' },
-      'reward-note': {
-        en: 'At checkout on Amazon, paste your code in "Gift cards &amp; promotional codes" and click Apply.',
-        es: 'En el checkout de Amazon, pega tu código en "Gift cards &amp; promotional codes" y haz clic en Apply.'
-      },
-      'reward-review-text': {
-        en: 'Loved it? A quick review on Amazon helps us keep creating.',
-        es: '¿Te encantó? Una reseña rápida en Amazon nos ayuda a seguir creando.'
-      },
-      'reward-review-btn': { en: 'Write a Review', es: 'Escribir una Reseña' },
-      'footer-tagline': {
-        en: 'Inspiring spaces, inspiring lives.',
-        es: 'Espacios que inspiran, vidas que inspiran.'
-      }
+      rewardLabel: { en: 'Exclusive Reward', es: 'Recompensa Exclusiva' },
+      rewardTitle: { en: 'Welcome to JULZEN.', es: 'Bienvenido a JULZEN.' },
+      rewardSub: { en: 'Your reward is one step away. Use it, or gift it to anyone who would love our brand.', es: 'Tu recompensa está a un paso. Úsala o regálala a quien ame nuestra marca.' },
+      namePlaceholder: { en: 'Your name', es: 'Tu nombre' },
+      claimBtn: { en: 'Claim your discount', es: 'Reclama tu descuento' },
+      rewardError: { en: 'Something went wrong. Please try again.', es: 'Algo salió mal. Inténtalo de nuevo.' },
+      yourCode: { en: 'Your code', es: 'Tu código' },
+      copyCode: { en: 'Copy code', es: 'Copiar código' },
+      rewardNote: { en: 'At checkout on Amazon, paste your code in "Gift cards & promotional codes" and click Apply.', es: 'En el checkout de Amazon, pega tu código en "Tarjetas de regalo y códigos promocionales" y haz clic en Aplicar.' },
+      rewardReview: { en: 'Loved it? A quick review on Amazon helps us keep creating.', es: '¿Te encantó? Una reseña rápida en Amazon nos ayuda a seguir creando.' },
+      writeReview: { en: 'Write a Review', es: 'Escribe una Reseña' },
+      footerTagline: { en: 'Inspiring spaces, inspiring lives.', es: 'Espacios que inspiran, vidas que transforman.' }
     };
 
-    var currentLang = 'en';
-    var langSwitch = document.querySelector('.lang-switch');
-    if (langSwitch) {
-      var langOptions = langSwitch.querySelectorAll('.lang-option');
-
-      var setLang = function (lang) {
-        currentLang = lang;
-        document.documentElement.setAttribute('lang', lang);
-        langOptions.forEach(function (opt) {
-          opt.classList.toggle('lang-active', opt.textContent.trim().toLowerCase() === lang);
-        });
-        document.querySelectorAll('[data-i18n]').forEach(function (el) {
-          var key = el.getAttribute('data-i18n');
-          if (rewardTranslations[key] && rewardTranslations[key][lang]) {
-            if (el.tagName === 'INPUT') {
-              el.placeholder = rewardTranslations[key][lang];
-            } else {
-              el.innerHTML = rewardTranslations[key][lang];
-            }
-          }
-        });
-        try { localStorage.setItem('julzen-lang', lang); } catch (e) {}
-      };
-
-      langSwitch.addEventListener('click', function () {
-        setLang(currentLang === 'en' ? 'es' : 'en');
-      });
-      // role="button": Enter and Space work like a click (same as the landing)
-      langSwitch.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          setLang(currentLang === 'en' ? 'es' : 'en');
+    function applyRewardLang(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n');
+        if (rewardTranslations[key] && rewardTranslations[key][lang]) {
+          el.textContent = rewardTranslations[key][lang];
         }
       });
-
-      try {
-        var saved = localStorage.getItem('julzen-lang');
-        if (saved === 'es') setLang('es');
-      } catch (e) {}
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+        var key = el.getAttribute('data-i18n-placeholder');
+        if (rewardTranslations[key] && rewardTranslations[key][lang]) {
+          el.placeholder = rewardTranslations[key][lang];
+        }
+      });
     }
+
+    (function () {
+      var langSwitch = document.querySelector('.lang-switch');
+      if (!langSwitch) return;
+      var opts = langSwitch.querySelectorAll('.lang-option');
+      var saved = localStorage.getItem('julzen-lang') || 'en';
+      opts.forEach(function (o) { o.classList.toggle('lang-active', o.textContent.trim().toLowerCase() === saved); });
+      applyRewardLang(saved);
+
+      langSwitch.addEventListener('click', function () {
+        var current = localStorage.getItem('julzen-lang') || 'en';
+        var next = current === 'en' ? 'es' : 'en';
+        localStorage.setItem('julzen-lang', next);
+        opts.forEach(function (o) { o.classList.toggle('lang-active', o.textContent.trim().toLowerCase() === next); });
+        applyRewardLang(next);
+      });
+    })();
   </script>
 
 </body>
