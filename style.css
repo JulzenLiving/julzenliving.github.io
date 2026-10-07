@@ -757,3 +757,8 @@ footer {
 .reward-note { font-size: 0.85rem; color: var(--mid); margin-bottom: 1.25rem; }
 .reward-review { font-size: 0.85rem; color: var(--mid); line-height: 1.6; margin-bottom: 1rem; }
 .reward-review-btn { margin-top: 0.25rem; }
+@media (min-width: 768px) {
+  [lang="es"] .hero-title, .hero-title[data-lang="es"] {
+    font-size: clamp(3rem, 8vw, 5rem);
+  }
+}
